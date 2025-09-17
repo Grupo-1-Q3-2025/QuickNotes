@@ -1,1 +1,64 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:QuickNotes.ViewModels"
+             xmlns:model="clr-namespace:QuickNotes.Models"
+             x:Class="QuickNotes.Views.NotaView"
+             Title="QuickNotes"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
+
+    <ContentPage.BindingContext>
+        <viewModel:NotaViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Spacing="15" Padding="20">
+                <!--Titulo-->
+                <Label Text="Quick Notes"
+                       FontSize="Title"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#FFDAA520"/>
+
+                <!--Formulario-->
+                <Frame CornerRadius="10"
+                       Padding="8"
+                       BackgroundColor="DarkGoldenrod"
+                       HasShadow="True">
+
+                    <VerticalStackLayout Spacing="0">
+                        <Entry Placeholder="Título"
+                               Text="{Binding NotaSeleccionada.Titulo}"
+                               BackgroundColor="{AppThemeBinding Light=White, Dark=GhostWhite}"
+                               PlaceholderColor="Gray"
+                               TextColor="Black"/>
+
+                        <Entry Placeholder="Descripción"
+                               Text="{Binding NotaSeleccionada.Descripcion}"
+                               TextColor="Black"
+                               BackgroundColor="{AppThemeBinding Light=White, Dark=GhostWhite}"
+                               PlaceholderColor="Gray"
+                               HeightRequest="100"
+                               VerticalOptions="Start"
+                               VerticalTextAlignment="Start"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!--Botones-->
+                <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Button FontAttributes="Bold"
+                            Text="Guardar"
+                            Command="{Binding GuardarNotaCommand}"
+                            BackgroundColor="#FF008080" />
+
+                    <Button FontAttributes="Bold"
+                            Text="Nuevo"
+                            Command="{Binding CrearNotaCommand}"
+                            BackgroundColor="#FFDAA520"/>
+
+                    <Button FontAttributes="Bold"
+                            Text="Eliminar"
+                            Command="{Binding EliminarNotaCommand}"
+                            BackgroundColor="#FFB22222" />
+                </HorizontalStackLayout>
