@@ -14,20 +14,21 @@
     <ContentPage.Content>
         <ScrollView>
             <VerticalStackLayout Spacing="15" Padding="20">
-                <!--Titulo-->
+
+                <!-- Título -->
                 <Label Text="Quick Notes"
                        FontSize="Title"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        TextColor="#FFDAA520"/>
 
-                <!--Formulario-->
+                <!-- Formulario -->
                 <Frame CornerRadius="10"
                        Padding="8"
                        BackgroundColor="DarkGoldenrod"
                        HasShadow="True">
 
-                    <VerticalStackLayout Spacing="0">
+                    <VerticalStackLayout Spacing="10">
                         <Entry Placeholder="Título"
                                Text="{Binding NotaSeleccionada.Titulo}"
                                BackgroundColor="{AppThemeBinding Light=White, Dark=GhostWhite}"
@@ -45,7 +46,46 @@
                     </VerticalStackLayout>
                 </Frame>
 
-                <!--Botones-->
+                <!-- Listado de notas -->
+                <Label Text="Notas"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       Margin="0,15,0,5"
+                       TextColor="{StaticResource PrimaryTextColor}" />
+
+                <CollectionView ItemsSource="{Binding NotaCollection}"
+                                SelectedItem="{Binding NotaSeleccionada, Mode=TwoWay}"
+                                SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Nota">
+                            <Border Stroke="Teal"
+                                    StrokeThickness="5"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="{AppThemeBinding Light=White, Dark=GhostWhite}"
+                                    Margin="5"
+                                    Padding="12">
+
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Titulo}"
+                                           FontAttributes="Bold"
+                                           FontSize="18"
+                                           TextColor="Black"/>
+
+                                    <Label Text="{Binding Descripcion}"
+                                           FontSize="14"
+                                           TextColor="Black" />
+
+                                    <Label Text="{Binding FechaCreacion, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}"
+                                           FontSize="12"
+                                           TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Botones -->
                 <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
                     <Button FontAttributes="Bold"
                             Text="Guardar"
@@ -62,3 +102,8 @@
                             Command="{Binding EliminarNotaCommand}"
                             BackgroundColor="#FFB22222" />
                 </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
