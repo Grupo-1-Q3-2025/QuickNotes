@@ -11,4 +11,3 @@ public class Nota
     public DateTime FechaCreacion { get; set; }
 }
 
-// hola 

@@ -46,6 +46,17 @@
                     </VerticalStackLayout>
                 </Frame>
 
+                <!-- Búsqueda -->
+                <Label Text="Búsqueda"
+                       FontSize="16"
+                       TextColor="Teal"/>
+
+                <Entry Text="{Binding SearchText}"
+                       Placeholder="Escribe para filtrar tus notas"
+                       ClearButtonVisibility="WhileEditing"
+                       Keyboard="Text"
+                       TextColor="Teal"/>
+
                 <!-- Listado de notas -->
                 <Label Text="Notas"
                        FontSize="20"
@@ -53,7 +64,7 @@
                        Margin="0,15,0,5"
                        TextColor="{StaticResource PrimaryTextColor}" />
 
-                <CollectionView ItemsSource="{Binding NotaCollection}"
+                <CollectionView ItemsSource="{Binding FilteredNotaCollection}"
                                 SelectedItem="{Binding NotaSeleccionada, Mode=TwoWay}"
                                 SelectionMode="Single">
 

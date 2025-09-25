@@ -4,6 +4,10 @@ using CommunityToolkit.Mvvm.Input;
 using QuickNotes.Models;
 using QuickNotes.Services;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 public partial class NotaViewModel : ObservableObject
 {
@@ -13,7 +17,13 @@ public partial class NotaViewModel : ObservableObject
     ObservableCollection<Nota> notaCollection = new();
 
     [ObservableProperty]
+    ObservableCollection<Nota> filteredNotaCollection = new();
+
+    [ObservableProperty]
     Nota notaSeleccionada = new();
+
+    [ObservableProperty]
+    string searchText;
 
     public NotaViewModel()
     {
@@ -53,9 +63,34 @@ public partial class NotaViewModel : ObservableObject
         }
     }
 
+    partial void OnSearchTextChanged(string value)
+    {
+        AplicarFiltro();
+    }
+
+    void AplicarFiltro()
+    {
+        if (notaCollection is null) return;
+
+        var criterio = (searchText ?? string.Empty).Trim();
+        if (criterio.Length == 0)
+        {
+            FilteredNotaCollection = new ObservableCollection<Nota>(notaCollection);
+            return;
+        }
+
+        var filtradas = notaCollection.Where(n =>
+            (!string.IsNullOrEmpty(n.Titulo) && n.Titulo.Contains(criterio, StringComparison.OrdinalIgnoreCase)) ||
+            (!string.IsNullOrEmpty(n.Descripcion) && n.Descripcion.Contains(criterio, StringComparison.OrdinalIgnoreCase))
+        ).ToList();
+
+        FilteredNotaCollection = new ObservableCollection<Nota>(filtradas);
+    }
+
     async Task CargarNotas()
     {
         var notas = await _service.GetNotasAsync();
         NotaCollection = new ObservableCollection<Nota>(notas);
+        AplicarFiltro();
     }
 }
