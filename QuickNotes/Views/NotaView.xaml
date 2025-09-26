@@ -46,6 +46,24 @@
                     </VerticalStackLayout>
                 </Frame>
 
+                <!-- Botones -->
+                <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Button FontAttributes="Bold"
+             Text="Guardar"
+             Command="{Binding GuardarNotaCommand}"
+             BackgroundColor="#FF008080" />
+
+                    <Button FontAttributes="Bold"
+             Text="Nuevo"
+             Command="{Binding CrearNotaCommand}"
+             BackgroundColor="#FFDAA520"/>
+
+                    <Button FontAttributes="Bold"
+             Text="Eliminar"
+             Command="{Binding EliminarNotaCommand}"
+             BackgroundColor="#FFB22222" />
+                </HorizontalStackLayout>
+
                 <!-- Búsqueda -->
                 <Label Text="Búsqueda"
                        FontSize="16"
@@ -96,23 +114,6 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <!-- Botones -->
-                <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
-                    <Button FontAttributes="Bold"
-                            Text="Guardar"
-                            Command="{Binding GuardarNotaCommand}"
-                            BackgroundColor="#FF008080" />
-
-                    <Button FontAttributes="Bold"
-                            Text="Nuevo"
-                            Command="{Binding CrearNotaCommand}"
-                            BackgroundColor="#FFDAA520"/>
-
-                    <Button FontAttributes="Bold"
-                            Text="Eliminar"
-                            Command="{Binding EliminarNotaCommand}"
-                            BackgroundColor="#FFB22222" />
-                </HorizontalStackLayout>
 
             </VerticalStackLayout>
         </ScrollView>
